@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hollowed Ground – AI Music</title>
+  <meta name="description" content="Original songs written from life, rendered through AI. Where country grit meets alt-rock. Made in Maryland.">
+  <meta property="og:title" content="Hollowed Ground">
+  <meta property="og:description" content="AI-generated music. Original lyrics. Country grit meets alt-rock.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Hollowed Ground">
+  <meta name="twitter:description" content="AI-generated music. Original lyrics. Country grit meets alt-rock.">
+  <meta name="twitter:image" content="og-image.png">
+  <meta name="theme-color" content="#080706">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon.ico">
+  <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080706;
+      --text: #ede8de;
+      --muted: rgba(237,232,222,0.38);
+      --dim: rgba(237,232,222,0.18);
+      --border: rgba(255,255,255,0.06);
+      --gold: #c9a86c;
+      --gold-dim: rgba(201,168,108,0.45);
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; overflow-x: hidden; }
+
+    /* NAV */
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.2rem 2.5rem; border-bottom: 0.5px solid var(--border); position: sticky; top: 0; background: rgba(8,7,6,0.96); backdrop-filter: blur(12px); z-index: 200; }
+    .nav-logo { display: flex; align-items: center; gap: 11px; text-decoration: none; }
+    .nav-logo-img { width: 34px; height: 34px; border-radius: 4px; object-fit: cover; border: 0.5px solid rgba(255,255,255,0.1); }
+    .nav-logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 18px; letter-spacing: 0.12em; color: var(--text); }
+    .nav-links { display: flex; gap: 1.8rem; align-items: center; }
+    .nav-links a { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-yt-btn { display: flex; align-items: center; gap: 6px; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,120,120,0.7); border: 0.5px solid rgba(255,80,80,0.25); border-radius: 2px; padding: 5px 12px; text-decoration: none; transition: all 0.2s; }
+    .nav-yt-btn:hover { color: #ff9090; border-color: rgba(255,80,80,0.5); background: rgba(255,80,80,0.05); }
+    .yt-ico-sm { width: 14px; height: 10px; background: rgba(255,80,80,0.65); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 5px; color: #080706; }
+
+    /* HERO */
+    .hero { display: grid; grid-template-columns: 1fr 1.7fr; border-bottom: 0.5px solid var(--border); min-height: 400px; }
+    .hero-art { position: relative; overflow: hidden; }
+    .hero-art img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; filter: brightness(0.65) contrast(1.12) saturate(0.85); }
+    .hero-art-overlay { position: absolute; inset: 0; background: linear-gradient(to right, transparent 50%, var(--bg) 100%); }
+    .hero-info { padding: 3rem 2.5rem 3rem 2rem; display: flex; flex-direction: column; justify-content: flex-end; }
+    .hero-eyebrow { font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--dim); margin-bottom: 0.75rem; }
+    .hero-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(3.5rem, 7vw, 6.5rem); line-height: 0.88; letter-spacing: 0.02em; margin-bottom: 1.2rem; }
+    .hero-title .dim { color: transparent; -webkit-text-stroke: 1px rgba(237,232,222,0.2); }
+    .hero-desc { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.78; max-width: 360px; margin-bottom: 1.4rem; }
+    .hero-meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 1.5rem; margin-bottom: 1.5rem; }
+    .meta-item label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); display: block; margin-bottom: 3px; }
+    .meta-item span { font-size: 13px; color: rgba(237,232,222,0.62); }
+    .meta-item span.gold { color: var(--gold); }
+    .hero-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+    .tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border: 0.5px solid rgba(237,232,222,0.1); border-radius: 2px; color: rgba(237,232,222,0.28); }
+
+    /* STATS */
+    .stats-strip { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 0.5px solid var(--border); }
+    .stat-item { padding: 1.4rem 2rem; border-right: 0.5px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--dim); margin-bottom: 5px; }
+    .stat-val { font-size: 14px; font-weight: 500; color: rgba(237,232,222,0.65); }
+    .stat-val.gold { color: var(--gold); }
+
+    /* STREAMING */
+    .streaming-band { padding: 1.2rem 2.5rem; border-bottom: 0.5px solid var(--border); display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .streaming-label { font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--dim); margin-right: 0.5rem; flex-shrink: 0; }
+    .stream-btn { display: flex; align-items: center; gap: 7px; padding: 6px 13px; border: 0.5px solid rgba(237,232,222,0.1); border-radius: 3px; font-size: 11px; color: var(--muted); text-decoration: none; transition: all 0.15s; letter-spacing: 0.04em; background: rgba(255,255,255,0.02); }
+    .stream-btn:hover { border-color: rgba(237,232,222,0.25); color: var(--text); }
+    .stream-btn.soon { opacity: 0.4; cursor: default; pointer-events: none; }
+    .sdot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* TRACKS */
+    .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim); padding: 1.8rem 2.5rem 0.6rem; }
+    .tracks { padding: 0 2.5rem 1rem; }
+    .track { display: grid; grid-template-columns: 2rem 3rem 1fr auto; align-items: center; gap: 1rem; padding: 0.85rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.04); cursor: pointer; transition: padding-left 0.15s; border-radius: 2px; }
+    .track:hover { padding-left: 6px; }
+    .track:last-child { border-bottom: none; }
+    .track.active .track-num { color: var(--gold); }
+    .track.active .track-title { color: var(--text); }
+    .track-num { font-size: 11px; color: var(--dim); text-align: center; font-variant-numeric: tabular-nums; transition: color 0.15s; }
+    .dur-pill { font-size: 10px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 3px; padding: 3px 5px; color: rgba(237,232,222,0.28); text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
+    .track-info { min-width: 0; }
+    .track-title { font-size: 14px; font-weight: 500; color: rgba(237,232,222,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.15s; }
+    .track-meta { font-size: 11px; color: var(--dim); margin-top: 2px; }
+    .track-right { display: flex; align-items: center; gap: 10px; }
+    .track-likes { font-size: 11px; color: var(--gold-dim); }
+    .play-btn { width: 30px; height: 30px; border-radius: 50%; border: 0.5px solid rgba(237,232,222,0.1); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: rgba(237,232,222,0.3); font-size: 9px; flex-shrink: 0; }
+    .play-btn:hover { border-color: rgba(237,232,222,0.3); color: var(--text); background: rgba(237,232,222,0.04); }
+    .track.active .play-btn { border-color: var(--gold); color: var(--gold); }
+
+    /* PLAYER BAR */
+    .player-bar { position: sticky; bottom: 0; background: rgba(8,7,6,0.98); border-top: 0.5px solid rgba(255,255,255,0.1); padding: 0 2.5rem; z-index: 150; backdrop-filter: blur(16px); }
+    .player-inner { display: flex; align-items: center; gap: 1.4rem; padding: 0.85rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.04); }
+    .playing-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; animation: pulse 1.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.25;transform:scale(0.5)} }
+    .player-info { flex: 1; min-width: 0; }
+    .player-title { font-size: 14px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .player-sub { font-size: 10px; color: var(--dim); margin-top: 2px; }
+    .vol-row { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+    .vol-icon { font-size: 13px; cursor: pointer; user-select: none; }
+    .vol-slider { -webkit-appearance: none; appearance: none; width: 72px; height: 3px; border-radius: 2px; background: rgba(255,255,255,0.1); cursor: pointer; outline: none; }
+    .vol-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; border-radius: 50%; background: var(--gold); cursor: pointer; }
+    .vol-slider::-moz-range-thumb { width: 10px; height: 10px; border-radius: 50%; background: var(--gold); border: none; cursor: pointer; }
+    .player-controls { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+    .ctrl-btn { background: none; border: 0.5px solid rgba(237,232,222,0.09); border-radius: 2px; color: rgba(237,232,222,0.32); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; padding: 5px 10px; cursor: pointer; transition: all 0.15s; font-family: 'DM Sans', sans-serif; white-space: nowrap; }
+    .ctrl-btn:hover { color: var(--text); border-color: rgba(237,232,222,0.28); }
+    .ctrl-btn.gold { border-color: var(--gold); color: var(--gold); }
+
+    /* PROGRESS */
+    .progress-row { display: flex; align-items: center; gap: 10px; padding: 0.5rem 0 0.8rem; }
+    .time-lbl { font-size: 10px; color: var(--dim); font-variant-numeric: tabular-nums; white-space: nowrap; min-width: 30px; }
+    .time-lbl.r { text-align: right; }
+    .prog-track { flex: 1; height: 3px; background: rgba(255,255,255,0.08); border-radius: 2px; cursor: pointer; position: relative; }
+    .prog-fill { height: 100%; background: var(--gold); border-radius: 2px; width: 0%; pointer-events: none; }
+    .prog-thumb { position: absolute; top: 50%; transform: translateY(-50%); width: 10px; height: 10px; border-radius: 50%; background: var(--gold); margin-left: -5px; opacity: 0; transition: opacity 0.15s; pointer-events: none; }
+    .prog-track:hover .prog-thumb { opacity: 1; }
+
+    /* YT BAND */
+    .yt-band { display: flex; justify-content: space-between; align-items: center; padding: 2rem 2.5rem; border-bottom: 0.5px solid var(--border); }
+    .yt-copy h3 { font-size: 15px; font-weight: 500; margin-bottom: 5px; }
+    .yt-copy p { font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.65; max-width: 380px; }
+    .yt-btn { display: flex; align-items: center; gap: 8px; padding: 9px 18px; border: 0.5px solid rgba(255,80,80,0.3); border-radius: 3px; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,120,120,0.75); transition: all 0.15s; text-decoration: none; }
+    .yt-btn:hover { background: rgba(255,80,80,0.05); border-color: rgba(255,80,80,0.55); color: #ff8888; }
+    .yt-ico { width: 16px; height: 12px; background: rgba(255,80,80,0.65); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 6px; color: var(--bg); }
+
+    footer { padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
+    .fc { font-size: 10px; color: var(--dim); letter-spacing: 0.04em; }
+
+    @media (max-width: 720px) {
+      .hero { grid-template-columns: 1fr; }
+      .hero-art { min-height: 200px; }
+      .hero-art-overlay { background: linear-gradient(to bottom, transparent 40%, var(--bg) 100%); }
+      .hero-info { padding: 1.5rem 1.5rem 2rem; }
+      .stats-strip { grid-template-columns: 1fr 1fr; }
+      .stat-item:nth-child(2) { border-right: none; }
+      .stat-item:nth-child(3), .stat-item:last-child { border-top: 0.5px solid var(--border); }
+      nav, .tracks, .section-label, .player-bar, .yt-band, .streaming-band, footer { padding-left: 1.2rem; padding-right: 1.2rem; }
+      .hide-mob { display: none; }
+      .vol-row { display: none; }
+      .yt-band { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
+      footer { flex-direction: column; gap: 4px; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="#">
+    <img class="nav-logo-img" src="logo.png" alt="Hollowed Ground" onerror="this.style.display='none'">
+    <span class="nav-logo-text">Hollowed Ground</span>
+  </a>
+  <div class="nav-links">
+    <a href="#tracks">Music</a>
+    <a href="#about" class="hide-mob">About</a>
+    <a class="nav-yt-btn" href="https://www.youtube.com/@HollowedGround" target="_blank" rel="noopener">
+      <div class="yt-ico-sm">▶</div>
+      YouTube
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-art">
+    <img src="logo.png" alt="Hollowed Ground">
+    <div class="hero-art-overlay"></div>
+  </div>
+  <div class="hero-info">
+    <div class="hero-eyebrow">Artist · Label · AI Music</div>
+    <div class="hero-title">Hollowed<br><span class="dim">Ground</span></div>
+    <p class="hero-desc">Original songs written from life, rendered through AI. Where country grit meets alt-rock — made in Maryland, released on the internet.</p>
+    <div class="hero-meta-grid">
+      <div class="meta-item"><label>Artist</label><span>Hollowed Ground</span></div>
+      <div class="meta-item"><label>Label</label><span>Hollowed Ground</span></div>
+      <div class="meta-item"><label>Release Date</label><span class="gold">May 1, 2026</span></div>
+      <div class="meta-item"><label>UPC</label><span>823000153404</span></div>
+    </div>
+    <div class="hero-tags">
+      <span class="tag">Suno AI</span>
+      <span class="tag">Alt Rock</span>
+      <span class="tag">Country</span>
+      <span class="tag">Original Lyrics</span>
+      <span class="tag">Indie</span>
+    </div>
+  </div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-label">Tracks</div><div class="stat-val gold">8</div></div>
+  <div class="stat-item"><div class="stat-label">YouTube Views</div><div class="stat-val">323+</div></div>
+  <div class="stat-item"><div class="stat-label">Like Ratio</div><div class="stat-val gold">100%</div></div>
+  <div class="stat-item"><div class="stat-label">Platforms</div><div class="stat-val">3</div></div>
+</div>
+
+<div class="streaming-band">
+  <span class="streaming-label">Listen on</span>
+  <!-- Update hrefs when CDBaby releases go live -->
+  <a class="stream-btn soon" href="#">
+    <div class="sdot" style="background:#1DB954;"></div>
+    Spotify — coming soon
+  </a>
+  <a class="stream-btn soon" href="#">
+    <div class="sdot" style="background:#fc3c44;"></div>
+    Apple Music — coming soon
+  </a>
+  <a class="stream-btn" href="https://www.youtube.com/@HollowedGround" target="_blank" rel="noopener">
+    <div class="sdot" style="background:#ff0000;"></div>
+    YouTube
+  </a>
+</div>
+
+<div class="section-label" id="tracks">— Discography</div>
+<div class="tracks" id="track-list"></div>
+
+<div class="player-bar">
+  <div class="player-inner">
+    <div class="playing-dot" id="playing-dot" style="display:none"></div>
+    <div class="player-info">
+      <div class="player-title" id="player-title">Select a track to play</div>
+      <div class="player-sub" id="player-sub">Hollowed Ground · 8 tracks</div>
+    </div>
+    <div class="vol-row">
+      <span class="vol-icon" id="vol-icon" onclick="toggleMute()">🔊</span>
+      <input class="vol-slider" type="range" min="0" max="1" step="0.01" value="1" id="vol-slider" oninput="setVolume(this.value)">
+    </div>
+    <div class="player-controls">
+      <button class="ctrl-btn" onclick="prevTrack()">&#9664; Prev</button>
+      <button class="ctrl-btn gold" id="play-btn" onclick="togglePlay()">Play</button>
+      <button class="ctrl-btn" onclick="nextTrack()">Next &#9654;</button>
+    </div>
+  </div>
+  <div class="progress-row">
+    <span class="time-lbl" id="time-cur">0:00</span>
+    <div class="prog-track" id="prog-track" onclick="seek(event)">
+      <div class="prog-fill" id="prog-fill"></div>
+      <div class="prog-thumb" id="prog-thumb"></div>
+    </div>
+    <span class="time-lbl r" id="time-dur">0:00</span>
+  </div>
+</div>
+
+<div class="yt-band" id="about">
+  <div class="yt-copy">
+    <h3>Watch on YouTube</h3>
+    <p>All tracks live on the Hollowed Ground YouTube channel — AI-generated visuals, original lyrics, Suno audio. Every song 100% liked.</p>
+  </div>
+  <a class="yt-btn" href="https://www.youtube.com/@HollowedGround" target="_blank" rel="noopener">
+    <div class="yt-ico">▶</div>
+    Visit Channel ↗
+  </a>
+</div>
+
+<footer>
+  <div class="fc">© 2026 Hollowed Ground · All Rights Reserved</div>
+  <div class="fc">UPC 823000153404 · Made with Suno AI · Distributed via CDBaby</div>
+</footer>
+
+<audio id="audio-player" preload="metadata"></audio>
+
+<script>
+  const TRACKS = [
+    { title: "Reaper's Threshold",           file: "Reaper_s_Threshold.wav",           views: 32,  likes: 2, date: "Mar 11, 2026" },
+    { title: "Seen",                          file: "Seen.wav",                          views: 42,  likes: 3, date: "Mar 11, 2026" },
+    { title: "Forgettable Night",             file: "Forgettable_Night.wav",             views: 104, likes: 3, date: "Mar 9, 2026"  },
+    { title: "Cowboy with a Broken Heart",    file: "Cowboy_with_a_Broken_Heart.wav",    views: 26,  likes: 1, date: "Mar 9, 2026"  },
+    { title: "Good Neighbor",                 file: "Good_Neighbor.wav",                 views: 34,  likes: 2, date: "Mar 9, 2026"  },
+    { title: "She Never Wanted to Dance",     file: "She_Never_Wanted_to_Dance.wav",     views: 28,  likes: 1, date: "Mar 8, 2026"  },
+    { title: "This Old Cowgirl Needs a Rest", file: "This_Old_Cowgirl_Needs_a_Rest.wav", views: 57,  likes: 4, date: "Mar 6, 2026"  },
+    { title: "Muffin Boy (For Evan)",         file: "Muffin_Boy__For_Evan_.wav",         views: 0,   likes: 0, date: "2026"         },
+  ];
+
+  const audio = document.getElementById('audio-player');
+  let current = -1;
+  let playing = false;
+  let muted = false;
+
+  function fmtTime(s) {
+    if (!s || isNaN(s)) return '0:00';
+    const m = Math.floor(s / 60);
+    const sec = Math.floor(s % 60);
+    return m + ':' + String(sec).padStart(2, '0');
+  }
+
+  function renderTracks() {
+    const list = document.getElementById('track-list');
+    list.innerHTML = '';
+    TRACKS.forEach((t, i) => {
+      const div = document.createElement('div');
+      div.className = 'track' + (i === current ? ' active' : '');
+      div.onclick = () => selectTrack(i);
+      div.innerHTML = `
+        <div class="track-num">${String(i + 1).padStart(2, '0')}</div>
+        <div class="dur-pill" id="dur-${i}">—:——</div>
+        <div class="track-info">
+          <div class="track-title">${t.title}</div>
+          <div class="track-meta">${t.views > 0 ? t.views + ' views · ' : ''}${t.date}</div>
+        </div>
+        <div class="track-right">
+          <div class="track-likes">${t.likes > 0 ? '♥ ' + t.likes : ''}</div>
+          <button class="play-btn" onclick="event.stopPropagation(); selectTrack(${i})">
+            ${i === current && playing ? '❙❙' : '▶'}
+          </button>
+        </div>`;
+      list.appendChild(div);
+    });
+  }
+
+  function loadDurations() {
+    TRACKS.forEach((t, i) => {
+      const a = new Audio();
+      a.preload = 'metadata';
+      a.src = t.file;
+      a.onloadedmetadata = () => {
+        const el = document.getElementById('dur-' + i);
+        if (el) el.textContent = fmtTime(a.duration);
+      };
+    });
+  }
+
+  function selectTrack(i) {
+    current = i;
+    playing = true;
+    audio.src = TRACKS[i].file;
+    audio.play().catch(() => {});
+    document.getElementById('player-title').textContent = TRACKS[i].title;
+    document.getElementById('player-sub').textContent = 'Hollowed Ground · UPC 823000153404';
+    document.getElementById('play-btn').textContent = 'Pause';
+    document.getElementById('playing-dot').style.display = 'block';
+    renderTracks();
+  }
+
+  function togglePlay() {
+    if (current === -1) { selectTrack(0); return; }
+    if (playing) {
+      audio.pause();
+      playing = false;
+      document.getElementById('play-btn').textContent = 'Play';
+      document.getElementById('playing-dot').style.display = 'none';
+    } else {
+      audio.play().catch(() => {});
+      playing = true;
+      document.getElementById('play-btn').textContent = 'Pause';
+      document.getElementById('playing-dot').style.display = 'block';
+    }
+    renderTracks();
+  }
+
+  function prevTrack() { selectTrack(current <= 0 ? TRACKS.length - 1 : current - 1); }
+  function nextTrack() { selectTrack((current + 1) % TRACKS.length); }
+
+  audio.addEventListener('ended', () => nextTrack());
+
+  audio.addEventListener('timeupdate', () => {
+    if (!audio.duration) return;
+    const pct = (audio.currentTime / audio.duration) * 100;
+    const fill = document.getElementById('prog-fill');
+    const thumb = document.getElementById('prog-thumb');
+    if (fill) {
+      fill.style.width = pct + '%';
+      if (thumb) thumb.style.left = 'calc(' + pct + '% )';
+    }
+    document.getElementById('time-cur').textContent = fmtTime(audio.currentTime);
+  });
+
+  audio.addEventListener('loadedmetadata', () => {
+    document.getElementById('time-dur').textContent = fmtTime(audio.duration);
+  });
+
+  function seek(e) {
+    if (!audio.duration) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const pct = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    audio.currentTime = pct * audio.duration;
+  }
+
+  function setVolume(v) {
+    audio.volume = parseFloat(v);
+    muted = v == 0;
+    document.getElementById('vol-icon').textContent = v == 0 ? '🔇' : v < 0.5 ? '🔉' : '🔊';
+  }
+
+  function toggleMute() {
+    muted = !muted;
+    audio.muted = muted;
+    document.getElementById('vol-icon').textContent = muted ? '🔇' : '🔊';
+    document.getElementById('vol-slider').value = muted ? 0 : audio.volume;
+  }
+
+  renderTracks();
+  loadDurations();
+</script>
+</body>
+</html>

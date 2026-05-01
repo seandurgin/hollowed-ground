@@ -82,21 +82,22 @@
     /* TRACKS */
     .section-label { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--dim); padding: 1.8rem 2.5rem 0.6rem; }
     .tracks { padding: 0 2.5rem 1rem; }
-    .track { display: grid; grid-template-columns: 2rem 3rem 1fr auto; align-items: center; gap: 1rem; padding: 0.85rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.04); cursor: pointer; transition: padding-left 0.15s; border-radius: 2px; }
+    .track { display: grid; grid-template-columns: 2rem 1fr auto; align-items: center; gap: 1.2rem; padding: 1rem 0; border-bottom: 0.5px solid rgba(255,255,255,0.04); cursor: pointer; transition: padding-left 0.15s; border-radius: 2px; }
     .track:hover { padding-left: 6px; }
     .track:last-child { border-bottom: none; }
     .track.active .track-num { color: var(--gold); }
     .track.active .track-title { color: var(--text); }
-    .track-num { font-size: 11px; color: var(--dim); text-align: center; font-variant-numeric: tabular-nums; transition: color 0.15s; }
-    .dur-pill { font-size: 10px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 3px; padding: 3px 5px; color: rgba(237,232,222,0.28); text-align: center; font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .track-info { min-width: 0; }
-    .track-title { font-size: 14px; font-weight: 500; color: rgba(237,232,222,0.72); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.15s; }
-    .track-meta { font-size: 11px; color: var(--dim); margin-top: 2px; }
-    .track-right { display: flex; align-items: center; gap: 10px; }
+    .track-num { font-size: 11px; color: var(--dim); text-align: center; font-variant-numeric: tabular-nums; transition: color 0.15s; flex-shrink: 0; }
+    .track-info { min-width: 0; display: flex; align-items: center; gap: 12px; }
+    .play-btn { width: 34px; height: 34px; border-radius: 50%; border: 0.5px solid rgba(237,232,222,0.12); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: rgba(237,232,222,0.35); font-size: 10px; flex-shrink: 0; }
+    .play-btn:hover { border-color: rgba(237,232,222,0.35); color: var(--text); background: rgba(237,232,222,0.04); }
+    .track.active .play-btn { border-color: var(--gold); color: var(--gold); background: rgba(201,168,108,0.06); }
+    .track-text { min-width: 0; }
+    .track-title { font-size: 17px; font-weight: 500; color: rgba(237,232,222,0.78); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; transition: color 0.15s; letter-spacing: 0.01em; }
+    .track-meta { font-size: 11px; color: var(--dim); margin-top: 3px; }
+    .track-right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+    .dur-pill { font-size: 11px; background: rgba(255,255,255,0.03); border: 0.5px solid rgba(255,255,255,0.07); border-radius: 3px; padding: 4px 8px; color: rgba(237,232,222,0.28); font-variant-numeric: tabular-nums; white-space: nowrap; }
     .track-likes { font-size: 11px; color: var(--gold-dim); }
-    .play-btn { width: 30px; height: 30px; border-radius: 50%; border: 0.5px solid rgba(237,232,222,0.1); background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; color: rgba(237,232,222,0.3); font-size: 9px; flex-shrink: 0; }
-    .play-btn:hover { border-color: rgba(237,232,222,0.3); color: var(--text); background: rgba(237,232,222,0.04); }
-    .track.active .play-btn { border-color: var(--gold); color: var(--gold); }
 
     /* PLAYER BAR */
     .player-bar { position: sticky; bottom: 0; background: rgba(8,7,6,0.98); border-top: 0.5px solid rgba(255,255,255,0.1); padding: 0 2.5rem; z-index: 150; backdrop-filter: blur(16px); }
@@ -204,13 +205,13 @@
 <div class="streaming-band">
   <span class="streaming-label">Listen on</span>
   <!-- Update hrefs when CDBaby releases go live -->
-  <a class="stream-btn soon" href="#">
+  <a class="stream-btn" href="https://open.spotify.com/album/4vXcbdDNF1QKVyhXtbWd22" target="_blank" rel="noopener">
     <div class="sdot" style="background:#1DB954;"></div>
-    Spotify — coming soon
+    Spotify
   </a>
-  <a class="stream-btn soon" href="#">
+  <a class="stream-btn" href="https://music.apple.com/us/album/hollowed-ground/1889677449" target="_blank" rel="noopener">
     <div class="sdot" style="background:#fc3c44;"></div>
-    Apple Music — coming soon
+    Apple Music
   </a>
   <a class="stream-btn" href="https://www.youtube.com/@HollowedGround" target="_blank" rel="noopener">
     <div class="sdot" style="background:#ff0000;"></div>
@@ -299,16 +300,18 @@
       div.onclick = () => selectTrack(i);
       div.innerHTML = `
         <div class="track-num">${String(i + 1).padStart(2, '0')}</div>
-        <div class="dur-pill" id="dur-${i}">—:——</div>
         <div class="track-info">
-          <div class="track-title">${t.title}</div>
-          <div class="track-meta">${t.views > 0 ? t.views + ' views · ' : ''}${t.date}</div>
-        </div>
-        <div class="track-right">
-          <div class="track-likes">${t.likes > 0 ? '♥ ' + t.likes : ''}</div>
           <button class="play-btn" onclick="event.stopPropagation(); selectTrack(${i})">
             ${i === current && playing ? '❙❙' : '▶'}
           </button>
+          <div class="track-text">
+            <div class="track-title">${t.title}</div>
+            <div class="track-meta">${t.views > 0 ? t.views + ' views · ' : ''}${t.date}</div>
+          </div>
+        </div>
+        <div class="track-right">
+          <div class="track-likes">${t.likes > 0 ? '♥ ' + t.likes : ''}</div>
+          <div class="dur-pill" id="dur-${i}">—:——</div>
         </div>`;
       list.appendChild(div);
     });

@@ -139,6 +139,13 @@
     footer { padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
     .fc { font-size: 11px; color: rgba(237,232,222,0.45); letter-spacing: 0.04em; }
 
+    .footer-meta { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 0.5px solid var(--border); border-bottom: 0.5px solid var(--border); padding: 1.4rem 2.5rem; gap: 1rem; }
+    .footer-meta-item { display: flex; flex-direction: column; gap: 4px; }
+    .footer-meta-label { font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(237,232,222,0.45); }
+    .footer-meta-val { font-size: 14px; font-weight: 500; color: rgba(237,232,222,0.85); }
+    .footer-meta-val.gold { color: var(--gold); }
+    .footer-bottom { padding: 1rem 2.5rem; display: flex; justify-content: space-between; align-items: center; }
+
     @media (max-width: 720px) {
       .hero { grid-template-columns: 1fr; }
       .hero-art { min-height: 200px; }
@@ -152,7 +159,8 @@
       .vol-row { display: none; }
       .about-section { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 1.2rem; }
       .yt-band { flex-direction: column; align-items: flex-start; gap: 1.2rem; }
-      footer { flex-direction: column; gap: 4px; align-items: flex-start; }
+      .footer-meta { grid-template-columns: 1fr 1fr; }
+      .footer-bottom { flex-direction: column; gap: 4px; align-items: flex-start; padding: 1rem 1.2rem; }
     }
   </style>
 </head>
@@ -180,19 +188,7 @@
     <div class="hero-title">Hollowed<br><span class="dim">Ground</span></div>
 
     <p class="hero-desc">For anyone who needed the right song at the right time.</p>
-    <div class="hero-meta-grid">
-      <div class="meta-item"><label>Artist</label><span>Hollowed Ground</span></div>
-      <div class="meta-item"><label>Label</label><span>Hollowed Ground</span></div>
-      <div class="meta-item"><label>Release Date</label><span class="gold">May 1, 2026</span></div>
-      <div class="meta-item"><label>UPC</label><span>823000153404</span></div>
-    </div>
-    <div class="hero-tags">
-      <span class="tag">Suno AI</span>
-      <span class="tag">Alt Rock</span>
-      <span class="tag">Country</span>
-      <span class="tag">Original Lyrics</span>
-      <span class="tag">Indie</span>
-    </div>
+
   </div>
 </section>
 
@@ -275,8 +271,16 @@
 
 
 <footer>
-  <div class="fc">© 2026 Hollowed Ground · All Rights Reserved</div>
-  <div class="fc">UPC 823000153404 · Made with Suno AI · Distributed via CDBaby</div>
+  <div class="footer-meta">
+    <div class="footer-meta-item"><span class="footer-meta-label">Artist</span><span class="footer-meta-val">Hollowed Ground</span></div>
+    <div class="footer-meta-item"><span class="footer-meta-label">Label</span><span class="footer-meta-val">Hollowed Ground</span></div>
+    <div class="footer-meta-item"><span class="footer-meta-label">Release Date</span><span class="footer-meta-val gold">May 1, 2026</span></div>
+    <div class="footer-meta-item"><span class="footer-meta-label">UPC</span><span class="footer-meta-val">823000153404</span></div>
+  </div>
+  <div class="footer-bottom">
+    <div class="fc">© 2026 Hollowed Ground · All Rights Reserved</div>
+    <div class="fc">Made with Suno AI · Distributed via CDBaby</div>
+  </div>
 </footer>
 
 <audio id="audio-player" preload="metadata"></audio>
